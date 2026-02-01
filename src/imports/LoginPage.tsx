@@ -1,7 +1,7 @@
 import svgPaths from "./svg-gc0ax7mkue";
-import imgAlexanderStartsevNdNw6QgrCUnsplash1 from "figma:asset/907587bbe4716f71e3bc8b6c27aee77528e12228.png";
-import imgBrunaBrancoT8HTmte4OGUnsplash1 from "figma:asset/2253934e8a0ad703e7b9253aac67ea3f159a035e.png";
-import imgMaeMuTkzdkVn1AyAUnsplash1 from "figma:asset/a5284c8200ddeeb01bc4396479826ec51ebefc60.png";
+import image3 from "image/image3.png";
+import image2 from "image/image2.png";
+import image1 from "image/image1.png";
 import imgGoogle from "figma:asset/c60f0ff5395f93b4cff610fb1b675dcc70e362d2.png";
 import imgAppleLogoBlack1 from "figma:asset/3d3984d9d51c1e28cf6e1521ee434231cea860b0.png";
 import imgRectangle1 from "figma:asset/2442acfa848f8e5dd992c0a12eee5fe62877dc1f.png";
@@ -10,14 +10,14 @@ function ImageSlideshow() {
   return (
     <div className="absolute contents left-0 top-0" data-name="Image Slideshow">
       <div className="absolute h-[1020px] left-0 top-0 w-[680px]" data-name="alexander-startsev-ndNw_6QGR_c-unsplash 1">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgAlexanderStartsevNdNw6QgrCUnsplash1} />
+        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={image3} />
       </div>
       <div className="absolute h-[1021px] left-0 top-0 w-[681px]" data-name="bruna-branco-t8hTmte4O_g-unsplash 1">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgBrunaBrancoT8HTmte4OGUnsplash1} />
+        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={image2} />
       </div>
       <div className="absolute h-[1024px] left-0 top-0 w-[680px]" data-name="mae-mu-TkzdkVn1AyA-unsplash 1">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute h-full left-[-6.94%] max-w-none top-0 w-[120.5%]" src={imgMaeMuTkzdkVn1AyAUnsplash1} />
+          <img alt="" className="absolute h-full left-[-6.94%] max-w-none top-0 w-[120.5%]" src={image1} />
         </div>
       </div>
     </div>

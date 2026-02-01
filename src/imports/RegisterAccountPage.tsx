@@ -2,8 +2,8 @@ import svgPaths from "./svg-fjrt8ztqe1";
 import imgAlexanderStartsevNdNw6QgrCUnsplash1 from "image/image3.png";
 import imgBrunaBrancoT8HTmte4OGUnsplash1 from "image/image2.png";
 import imgMaeMuTkzdkVn1AyAUnsplash1 from "image/image1.png";
-import imgGoogle from "figma:asset/c60f0ff5395f93b4cff610fb1b675dcc70e362d2.png";
-import imgAppleLogoBlack1 from "figma:asset/3d3984d9d51c1e28cf6e1521ee434231cea860b0.png";
+import imgGoogle from "image/googlelogo.svg";
+import imgAppleLogoBlack1 from "image/applelogoblack.svg";
 import imgRectangle1 from "figma:asset/2442acfa848f8e5dd992c0a12eee5fe62877dc1f.png";
 
 function ImageSlideshow() {
