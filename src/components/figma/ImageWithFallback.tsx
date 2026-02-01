@@ -1,6 +1,6 @@
 import { useState } from "react";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
+import LoginPage from "../LoginPage";
+import RegisterPage from "../RegisterPage";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<"login" | "register">("login");
