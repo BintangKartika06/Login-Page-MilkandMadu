@@ -44,7 +44,7 @@ export default function Login({ onSwitchToRegister }: LoginProps) {
   };
 
   return (
-    <div className="w-full max-w-4xl bg-gray-50 rounded-lg shadow-2xl overflow-hidden flex">
+    <div className="w-full max-w-4xl bg-white rounded-lg shadow-2xl overflow-hidden flex aspect-video">
       {/* Left side - Image Slideshow */}
       <div className="hidden md:block md:w-1/2 relative">
         <ImageSlideshow />

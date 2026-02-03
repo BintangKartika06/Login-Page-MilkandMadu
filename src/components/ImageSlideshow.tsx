@@ -41,7 +41,7 @@ export function ImageSlideshow() {
 
   return (
     <>
-      <div className="absolute left-0 top-0 h-[1024px] w-[680px] overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
         {images.map((img, index) => (
           <div
             key={index}
@@ -61,7 +61,7 @@ export function ImageSlideshow() {
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-[37px] size-[50px] top-[487px] cursor-pointer hover:opacity-80 transition-opacity"
+        className="absolute left-4 top-1/2 -translate-y-1/2 size-12 cursor-pointer hover:opacity-80 transition-opacity z-10"
         aria-label="Previous slide"
       >
         <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 50 50">
@@ -77,7 +77,7 @@ export function ImageSlideshow() {
 
       <button
         onClick={goToNext}
-        className="absolute left-[566px] size-[50px] top-[487px] cursor-pointer hover:opacity-80 transition-opacity"
+        className="absolute right-4 top-1/2 -translate-y-1/2 size-12 cursor-pointer hover:opacity-80 transition-opacity z-10"
         aria-label="Next slide"
       >
         <div className="-scale-y-100 rotate-180">
@@ -94,7 +94,7 @@ export function ImageSlideshow() {
       </button>
 
       {/* Slider dots */}
-      <div className="absolute h-[10px] left-[290px] top-[970px] w-[51px]">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 h-2.5 w-12 z-10">
         <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 51 10">
           <g>
             {[0, 26, 46].map((cx, index) => (
@@ -114,7 +114,7 @@ export function ImageSlideshow() {
       </div>
 
       {/* Photo Credit */}
-      <div className="absolute bottom-[40px] left-[20px] z-10">
+      <div className="absolute bottom-4 left-4 z-10">
         <a
           href={imageCredits[currentIndex].unsplashUrl}
           target="_blank"
