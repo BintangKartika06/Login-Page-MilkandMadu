@@ -1,5 +1,0 @@
-- [x] Import logoMadu in src/App.tsx
-- [x] Replace text in LoginForm with logo image
-- [x] Replace text in RegisterForm with logo image
-- [x] Fix TypeScript errors: added type declarations for image modules
-- [x] Added type annotations to map functions
