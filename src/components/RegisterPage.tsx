@@ -1,228 +1,219 @@
-import { useState } from "react";
-import ImageSlideshow from "./ImageSlideshow";
-import svgPaths from "../imports/svg-fjrt8ztqe1";
-import imgGoogle from "image/googlelogo.svg";
-import imgAppleLogoBlack1 from "image/applelogoblack.svg";
-import imgRectangle1 from "image/milkmadu.png";
+import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
+import { ImageSlideshow } from './ImageSlideshow';
 
-interface RegisterPageProps {
-  onNavigateToLogin: () => void;
+interface RegisterProps {
+  onSwitchToLogin: () => void;
 }
 
-export default function RegisterPage({ onNavigateToLogin }: RegisterPageProps) {
+export default function Register({ onSwitchToLogin }: RegisterProps) {
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [errors, setErrors] = useState<{fullName?: string; email?: string; password?: string; confirmPassword?: string}>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    const newErrors: {fullName?: string; email?: string; password?: string; confirmPassword?: string} = {};
+    if (!fullName.trim()) newErrors.fullName = 'Full name is required';
+    if (!email.trim()) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Email is invalid';
+    if (!password) newErrors.password = 'Password is required';
+    else if (password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+    if (!confirmPassword) newErrors.confirmPassword = 'Please confirm your password';
+    else if (password !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+    if (validateForm()) {
+      console.log('Register submitted:', { fullName, email, password });
+      // Add your registration logic here
+      alert('Registration successful!');
     }
-    console.log("Register attempt:", formData);
-    // Handle registration logic here
   };
 
   const handleGoogleSignup = () => {
-    console.log("Initiating Google signup...");
-    // In a real application, this would redirect to Google OAuth
-    alert("Google signup initiated! In a real app, this would redirect to Google's authentication page.");
-    // Example: window.location.href = 'YOUR_GOOGLE_OAUTH_URL';
+    console.log('Google signup clicked');
+    // Add Google OAuth logic here
   };
 
   const handleAppleSignup = () => {
-    console.log("Initiating Apple signup...");
-    // In a real application, this would redirect to Apple OAuth
-    alert("Apple signup initiated! In a real app, this would redirect to Apple's authentication page.");
-    // Example: window.location.href = 'YOUR_APPLE_OAUTH_URL';
+    console.log('Apple signup clicked');
+    // Add Apple OAuth logic here
   };
 
   return (
-    <div className="bg-white relative w-full h-screen overflow-hidden">
-      <ImageSlideshow />
-      
-      <div className="absolute bg-white h-[1024px] left-[650px] rounded-bl-[20px] rounded-tl-[20px] top-0 w-[790px]" />
-
-      {/* Logo */}
-      <div className="absolute h-[88px] left-[998px] top-[25px] w-[94px]">
-        <img alt="Logo" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgRectangle1} />
+    <div className="w-full max-w-4xl bg-white rounded-lg shadow-2xl overflow-hidden flex">
+      {/* Left side - Image Slideshow */}
+      <div className="hidden md:block md:w-1/2 relative">
+        <ImageSlideshow />
       </div>
 
-      {/* Form Section */}
-      <form onSubmit={handleSubmit} className="absolute left-[760px] top-[150px]">
-        <p className="font-['Poppins:SemiBold',sans-serif] leading-[normal] text-center not-italic text-[24px] text-black mb-[72px]">
-          Create Your Free Account
-        </p>
-
-        {/* Full Name Input */}
-        <div className="mb-[38px]">
-          <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[#828282] text-[20px] mb-[15px]">
-            Full Name
-          </p>
-          <input
-            type="text"
-            value={formData.fullName}
-            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-            placeholder="Enter Your Full Name Here"
-            className="bg-[rgba(232,238,244,0.81)] h-[61px] rounded-[18px] w-[581px] px-[32px] font-['Poppins:Medium',sans-serif] text-[20px] text-black placeholder:text-[#afafaf] outline-none focus:ring-2 focus:ring-yellow-400"
-          />
-        </div>
-
-        {/* Email Input */}
-        <div className="mb-[38px]">
-          <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[#828282] text-[20px] mb-[15px]">
-            Email
-          </p>
-          <input
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            placeholder="Enter Your Email Here"
-            className="bg-[rgba(232,238,244,0.81)] h-[61px] rounded-[18px] w-[581px] px-[32px] font-['Poppins:Medium',sans-serif] text-[20px] text-black placeholder:text-[#afafaf] outline-none focus:ring-2 focus:ring-yellow-400"
-          />
-        </div>
-
-        {/* Password Input */}
-        <div className="mb-[38px]">
-          <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[#828282] text-[20px] mb-[15px]">
-            Password
-          </p>
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              placeholder="Enter Your Password Here"
-              className="bg-[rgba(232,238,244,0.81)] h-[61px] rounded-[18px] w-[581px] px-[32px] font-['Poppins:Medium',sans-serif] text-[20px] text-black placeholder:text-[#afafaf] outline-none focus:ring-2 focus:ring-yellow-400"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-[24px] top-1/2 -translate-y-1/2 w-[26px] h-[20px] cursor-pointer"
-              aria-label={showPassword ? "Hide password" : "Show password"}
-            >
-              {showPassword ? (
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26.4196 20.1251">
-                  <path clipRule="evenodd" d={svgPaths.p369dd00} fill="#BFBFBF" fillRule="evenodd" />
-                  <path clipRule="evenodd" d={svgPaths.p318ae100} fill="black" fillRule="evenodd" />
-                </svg>
-              ) : (
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26.6035 24.5">
-                  <path clipRule="evenodd" d={svgPaths.pfd19ef2} fill="black" fillRule="evenodd" />
-                  <path clipRule="evenodd" d={svgPaths.p3aea2580} fill="#BFBFBF" fillRule="evenodd" />
-                  <path clipRule="evenodd" d={svgPaths.p13929e00} fill="#BFBFBF" fillRule="evenodd" />
-                </svg>
-              )}
-            </button>
+      {/* Right side - Register Form */}
+      <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
+            <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 17L12 22L22 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </div>
         </div>
 
-        {/* Confirm Password Input */}
-        <div className="mb-[44px]">
-          <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[#828282] text-[20px] mb-[15px]">
-            Confirm Password
-          </p>
-          <div className="relative">
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              value={formData.confirmPassword}
-              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-              placeholder="Enter Your Password Here"
-              className="bg-[rgba(232,238,244,0.81)] h-[61px] rounded-[18px] w-[581px] px-[32px] font-['Poppins:Medium',sans-serif] text-[20px] text-black placeholder:text-[#afafaf] outline-none focus:ring-2 focus:ring-yellow-400"
-            />
-            <button
-              type="button"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute right-[24px] top-1/2 -translate-y-1/2 w-[26px] h-[20px] cursor-pointer"
-              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-            >
-              {showConfirmPassword ? (
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26.4196 20.1251">
-                  <path clipRule="evenodd" d={svgPaths.p369dd00} fill="#BFBFBF" fillRule="evenodd" />
-                  <path clipRule="evenodd" d={svgPaths.p318ae100} fill="black" fillRule="evenodd" />
-                </svg>
-              ) : (
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26.6035 24.5">
-                  <path clipRule="evenodd" d={svgPaths.pfd19ef2} fill="black" fillRule="evenodd" />
-                  <path clipRule="evenodd" d={svgPaths.p3aea2580} fill="#BFBFBF" fillRule="evenodd" />
-                  <path clipRule="evenodd" d={svgPaths.p13929e00} fill="#BFBFBF" fillRule="evenodd" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
+        {/* Heading */}
+        <h1 className="text-2xl font-semibold text-center mb-8">Create Account</h1>
 
-        {/* Create Account Button */}
-        <button
-          type="submit"
-          className="bg-[#fe0] h-[70px] rounded-[28px] w-[352px] ml-[109px] mb-[21px] hover:bg-[#ffee33] transition-colors cursor-pointer"
-        >
-          <p className="font-['Poppins:Medium',sans-serif] leading-[normal] not-italic text-[24px] text-black">
+        {/* Form */}
+        <form onSubmit={handleRegister} className="space-y-4">
+          {/* Full Name */}
+          <div>
+            <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              placeholder="Enter your Full Name Here"
+              className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+              required
+            />
+            {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>}
+          </div>
+
+          {/* Email */}
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your Email Here"
+              className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+              required
+            />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+          </div>
+
+          {/* Password */}
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your Password Here"
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all pr-12"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+          </div>
+
+          {/* Confirm Password */}
+          <div>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+              Confirm Password
+            </label>
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm your Password"
+                className="w-full px-4 py-3 bg-gray-100 rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all pr-12"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
+            {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
+          </div>
+
+          {/* Register Button */}
+          <button
+            type="submit"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] mt-6"
+          >
             Create Account
-          </p>
-        </button>
+          </button>
+        </form>
 
         {/* Login Link */}
-        <div className="flex justify-center mb-[34px]">
-          <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[15px] text-black">
-            Already have a account?{" "}
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-600">
+            Already Have an Account?{' '}
+            <button
+              onClick={onSwitchToLogin}
+              className="text-blue-600 hover:text-blue-700 font-medium hover:underline"
+            >
+              Log In
+            </button>
           </p>
-          <button
-            type="button"
-            onClick={onNavigateToLogin}
-            className="decoration-solid font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[#001aff] text-[15px] underline ml-[5px] cursor-pointer hover:text-[#0015cc]"
-          >
-            Log In
-          </button>
         </div>
 
-        {/* Need Help */}
-        <p className="font-['Poppins:Bold',sans-serif] leading-[normal] text-center not-italic text-[14px] text-black mb-[72px] cursor-pointer hover:text-gray-700">
-          Need Help?
-        </p>
+        {/* Divider */}
+        <div className="flex items-center my-6">
+          <div className="flex-1 border-t border-gray-300"></div>
+          <span className="px-4 text-sm text-gray-500">OR</span>
+          <div className="flex-1 border-t border-gray-300"></div>
+        </div>
 
-        {/* OR Separator */}
-        <p className="font-['Poppins:Medium',sans-serif] leading-[normal] text-center not-italic text-[#716f6f] text-[20px] mb-[27px]">
-          - OR -
-        </p>
-
-        {/* Social Login Buttons */}
-        <div className="flex gap-[117px] ml-[15px]">
-          {/* Google Button */}
+        {/* Social Signup Buttons */}
+        <div className="space-y-3">
           <button
-            type="button"
             onClick={handleGoogleSignup}
-            className="bg-white border border-black border-solid h-[56px] rounded-[18px] w-[210px] flex items-center justify-center gap-[12px] hover:bg-gray-50 transition-colors cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all"
           >
-            <div className="h-[38px] w-[36px]">
-              <img alt="Google" className="max-w-none object-contain pointer-events-none size-full" src={imgGoogle} />
-            </div>
-            <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[13px] text-black">
-              Sign up with Google
-            </p>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M19.9 10.2273C19.9 9.51819 19.8364 8.83637 19.7182 8.18182H10.2V12.05H15.6636C15.4091 13.3 14.6727 14.3591 13.5864 15.0682V17.5773H16.8636C18.7909 15.8364 19.9 13.2727 19.9 10.2273Z" fill="#4285F4"/>
+              <path d="M10.2 20C12.9 20 15.1727 19.1045 16.8636 17.5773L13.5864 15.0682C12.6636 15.6682 11.5182 16.0227 10.2 16.0227C7.59545 16.0227 5.38182 14.2636 4.56364 11.9H1.17273V14.4909C2.85455 17.8409 6.24545 20 10.2 20Z" fill="#34A853"/>
+              <path d="M4.56364 11.9C4.34091 11.3 4.21364 10.6591 4.21364 10C4.21364 9.34091 4.34091 8.7 4.56364 8.1V5.50909H1.17273C0.509091 6.82727 0.136364 8.37273 0.136364 10C0.136364 11.6273 0.509091 13.1727 1.17273 14.4909L4.56364 11.9Z" fill="#FBBC04"/>
+              <path d="M10.2 3.97727C11.6364 3.97727 12.9182 4.48182 13.9227 5.43636L16.8455 2.51364C15.1682 0.886364 12.8955 0 10.2 0C6.24545 0 2.85455 2.15909 1.17273 5.50909L4.56364 8.1C5.38182 5.73636 7.59545 3.97727 10.2 3.97727Z" fill="#EA4335"/>
+            </svg>
+            <span className="text-sm font-medium">Sign up with Google</span>
           </button>
 
-          {/* Apple Button */}
           <button
-            type="button"
             onClick={handleAppleSignup}
-            className="bg-white border border-black border-solid h-[56px] rounded-[18px] w-[210px] flex items-center justify-center gap-[12px] hover:bg-gray-50 transition-colors cursor-pointer"
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all"
           >
-            <div className="h-[33px] w-[27px]">
-              <img alt="Apple" className="max-w-none object-cover pointer-events-none size-full" src={imgAppleLogoBlack1} />
-            </div>
-            <p className="font-['Poppins:Regular',sans-serif] leading-[normal] not-italic text-[13px] text-black">
-              Sign up with Apple
-            </p>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M16.9498 16.3479C16.4665 17.4229 15.9165 18.4229 15.2915 19.3562C14.4248 20.6312 13.7165 21.5062 13.1748 21.9812C12.3498 22.7479 11.4582 23.1396 10.4915 23.1646C9.78317 23.1646 8.92484 22.9729 7.92484 22.5812C6.9165 22.1896 6.00817 21.9979 5.18317 21.9979C4.3165 21.9979 3.38317 22.1896 2.37484 22.5812C1.36651 22.9729 0.541504 23.1729 -0.0918297 23.1979C-1.0168 23.2479 -1.9335 22.8479 -2.84183 22.0062C-3.42516 21.4896 -4.1585 20.5812 -5.04183 19.2729C-5.9835 17.8812 -6.7585 16.2562 -7.37516 14.3896C-8.0335 12.3479 -8.3335 10.3729 -8.3335 8.46458C-8.3335 6.28958 -7.9085 4.43958 -7.05017 2.92291C-6.38349 1.73958 -5.47516 0.814575 -4.31683 0.147908C-3.15849 -0.518759 -1.90849 -0.860092 -0.558493 -0.885092C0.191507 -0.885092 1.14984 -0.651759 2.3165 -0.193425C3.49151 0.272908 4.24984 0.506241 4.59984 0.506241C4.8665 0.506241 5.70817 0.231241 7.10817 -0.318425C8.44151 -0.826759 9.5665 -1.01842 10.4915 -0.976759C12.8332 -0.851759 14.5748 0.0232414 15.7082 1.68958C13.6248 2.96458 12.5915 4.68124 12.6165 6.83124C12.6415 8.56458 13.2498 10.0146 14.4498 11.1646C15.0082 11.6979 15.6332 12.1146 16.3332 12.4229C16.1998 12.7729 16.0665 13.1146 15.9248 13.4479C15.6248 14.4229 15.3082 15.3646 14.9748 16.2729L16.9498 16.3479Z" transform="translate(8.33333 -0.114258)" fill="black"/>
+              <path d="M10.2 -7C10.2 -5.73333 9.73333 -4.53333 8.8 -3.4C7.66667 -2.05 6.3 -1.26667 4.83333 -1.13333C4.81667 -0.983333 4.80833 -0.825 4.80833 -0.658333C4.80833 0.541667 5.21667 1.65 6.1 2.73333C6.88333 3.7 7.95 4.28333 9.1 4.35C9.11667 4.2 9.125 4.05833 9.125 3.925C9.125 2.73333 8.66667 1.58333 7.8 0.5C7.03333 -0.466667 6.05 -1.08333 5 -1.25C5.01667 -1.4 5.025 -1.55 5.025 -1.7C5.025 -4.65 7.28333 -6.33333 10.2 -7Z" transform="translate(8.33333 7.88574)" fill="black"/>
+            </svg>
+            <span className="text-sm font-medium">Sign up with Apple</span>
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
