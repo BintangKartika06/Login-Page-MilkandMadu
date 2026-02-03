@@ -4,7 +4,7 @@ import image2 from "image/image2.png";
 import image1 from "image/image1.png";
 import imgGoogle from "image/googlelogo.svg";
 import imgAppleLogoBlack1 from "image/applelogoblack.svg";
-import imgRectangle1 from "figma:asset/2442acfa848f8e5dd992c0a12eee5fe62877dc1f.png";
+import imgRectangle1 from "image/milkmadu.png";
 
 function ImageSlideshow() {
   return (

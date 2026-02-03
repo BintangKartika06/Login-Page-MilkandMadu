@@ -1,5 +1,5 @@
-import img9687346402411 from "figma:asset/55be3a5de56320276bed47daebafc1855361c9d0.png";
-import imgRegisterAccountPage1 from "figma:asset/f10ed7304ff6f2a7ca6cc9559fd946aae361d2ae.png";
+import img9687346402411 from "image/backgroubd.png";
+import imgRegisterAccountPage1 from "image/RegisterAccountPage1.png";
 
 export default function Thumbnail() {
   return (

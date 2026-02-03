@@ -3,7 +3,7 @@ import ImageSlideshow from "./ImageSlideshow";
 import svgPaths from "../imports/svg-fjrt8ztqe1";
 import imgGoogle from "image/googlelogo.svg";
 import imgAppleLogoBlack1 from "image/applelogoblack.svg";
-import imgRectangle1 from "figma:asset/2442acfa848f8e5dd992c0a12eee5fe62877dc1f.png";
+import imgRectangle1 from "image/milkmadu.png";
 
 interface RegisterPageProps {
   onNavigateToLogin: () => void;
