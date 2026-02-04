@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-
-/**
- * Komponen SocialLogins didefinisikan secara lokal di sini agar sistem preview dapat berjalan.
- * Untuk penggunaan di VSCode, Anda bisa tetap memisahkannya ke dalam file SocialLogins.tsx
- * di folder yang sama.
- */
 const SocialLogins: React.FC = () => (
   <div className="w-full max-w-sm mt-8">
     <div className="relative flex items-center justify-center mb-6">
