@@ -86,7 +86,7 @@ const LoginForm: React.FC<AuthProps> = ({ onSwitch }) => {
         </div>
         
         {/* Tombol Login */}
-        <button className="w-full bg-[#FFFF00] hover:bg-[#F2F200] active:scale-[0.98] text-black font-black py-3.5 rounded-full shadow-md mt-4 text-sm transition-all uppercase tracking-tight">
+        <button className="auth-button">
           Masuk
         </button>
       </form>
