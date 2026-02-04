@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Eye, EyeOff } from 'lucide-react';
 import logoMadu from './assets/milkmadu.png';
+import image1 from './assets/image1.png';
+import image2 from './assets/image2.png';
+import image3 from './assets/image3.png';
 
 
 const SocialLogins: React.FC = () => (
@@ -114,9 +117,9 @@ const App: React.FC = () => {
   const [activeImg, setActiveImg] = useState(0);
 
   const images = [
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&q=80&w=1200",
-    "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=1200"
+    ".src/images/image1.png",
+    ".src/images/image2.png",
+    ".src/images/image3.png"
   ];
 
   useEffect(() => {
@@ -133,7 +136,7 @@ const App: React.FC = () => {
           {images.map((img: string, i: number) => (
             <img
               key={i}
-              src={img}
+              src={i === 0 ? image1 : i === 1 ? image2 : image3}
               alt="Suasana Milk & Madu"
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === activeImg ? 'opacity-100' : 'opacity-0'}`}
             />
