@@ -36,7 +36,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, activeIndex, onNext, onPrev
         ))}
       </div>
 
-      {/* Tombol Navigasi (Hanya muncul di Desktop saat Hover) */}
+      {}
       <button 
         onClick={onPrev} 
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 p-2 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity hidden md:block"
